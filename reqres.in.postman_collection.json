@@ -1,0 +1,307 @@
+{
+	"info": {
+		"_postman_id": "d1d586d5-1ad0-4230-8ae1-e77bf0ad9838",
+		"name": "reqres.in",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7775927"
+	},
+	"item": [
+		{
+			"name": "List Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let responseJson=pm.response.json();\r",
+							"let total=responseJson.total;\r",
+							"pm.collectionVariables.set(\"total\",total);\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   // pm.response.to.have.status(200);\r",
+							"    pm.response.status.to.eql(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/user",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var schema = {\r",
+							"    \"$schema\": \"http://json-schema.org/draft-06/schema#\",\r",
+							"    \"$ref\": \"#/definitions/Welcome10\",\r",
+							"    \"definitions\": {\r",
+							"        \"Welcome10\": {\r",
+							"            \"type\": \"object\",\r",
+							"            \"additionalProperties\": false,\r",
+							"            \"properties\": {\r",
+							"                \"data\": {\r",
+							"                    \"$ref\": \"#/definitions/Data\"\r",
+							"                },\r",
+							"                \"support\": {\r",
+							"                    \"$ref\": \"#/definitions/Support\"\r",
+							"                }\r",
+							"            },\r",
+							"            \"required\": [\r",
+							"                \"data\",\r",
+							"                \"support\"\r",
+							"            ],\r",
+							"            \"title\": \"Welcome10\"\r",
+							"        },\r",
+							"        \"Data\": {\r",
+							"            \"type\": \"object\",\r",
+							"            \"additionalProperties\": false,\r",
+							"            \"properties\": {\r",
+							"                \"id\": {\r",
+							"                    \"type\": \"integer\"\r",
+							"                },\r",
+							"                \"email\": {\r",
+							"                    \"type\": \"string\"\r",
+							"                },\r",
+							"                \"first_name\": {\r",
+							"                    \"type\": \"string\"\r",
+							"                },\r",
+							"                \"last_name\": {\r",
+							"                    \"type\": \"string\"\r",
+							"                },\r",
+							"                \"avatar\": {\r",
+							"                    \"type\": \"string\",\r",
+							"                    \"format\": \"uri\",\r",
+							"                    \"qt-uri-protocols\": [\r",
+							"                        \"https\"\r",
+							"                    ],\r",
+							"                    \"qt-uri-extensions\": [\r",
+							"                        \".jpg\"\r",
+							"                    ]\r",
+							"                }\r",
+							"            },\r",
+							"            \"required\": [\r",
+							"                \"avatar\",\r",
+							"                \"email\",\r",
+							"                \"first_name\",\r",
+							"                \"id\",\r",
+							"                \"last_name\"\r",
+							"            ],\r",
+							"            \"title\": \"Data\"\r",
+							"        },\r",
+							"        \"Support\": {\r",
+							"            \"type\": \"object\",\r",
+							"            \"additionalProperties\": false,\r",
+							"            \"properties\": {\r",
+							"                \"url\": {\r",
+							"                    \"type\": \"string\",\r",
+							"                    \"format\": \"uri\",\r",
+							"                    \"qt-uri-protocols\": [\r",
+							"                        \"https\"\r",
+							"                    ]\r",
+							"                },\r",
+							"                \"text\": {\r",
+							"                    \"type\": \"string\"\r",
+							"                }\r",
+							"            },\r",
+							"            \"required\": [\r",
+							"                \"text\",\r",
+							"                \"url\"\r",
+							"            ],\r",
+							"            \"title\": \"Support\"\r",
+							"        }\r",
+							"    }\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test('Schema is valid', function () {\r",
+							"    var result = tv4.validateResult(pm.response.json(), schema)\r",
+							"    if(!result.valid)\r",
+							"    {\r",
+							"        console.log(result);\r",
+							"    }\r",
+							"    pm.expect(result.valid).to.be.true;\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/user/:id",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"user",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"leader\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/users",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"ds\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/users/:id",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/user/:id",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"user",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "jmeter.apache.org",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jmeter.apache.org",
+					"protocol": "https",
+					"host": [
+						"jmeter",
+						"apache",
+						"org"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": ""
+		},
+		{
+			"key": "total",
+			"value": ""
+		}
+	]
+}
